@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ProjetoAtividade01</string>
+    <string name="bem_vindo">Bem Vindo!!!!</string>
+    <string name="name_Insertion">Digite o seu nome</string>
+    <string name="password_Insertion">Digite a sua senha</string>
+    <string name="button_Login">Fazer Login</string>
+    <string name="button_Deslogar">Deslogar</string>
+    <string name="button_Paradas">Outras Paradas</string>
+    <string name="activity_Login">Fazer Login</string>
+    <string name="activity_Splashe_screen">Splash Screen</string>
+</resources>
