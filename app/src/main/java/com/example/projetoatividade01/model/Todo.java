@@ -83,6 +83,5 @@ public class Todo implements Parcelable {
         parcel.writeInt(this.id);
         parcel.writeString(this.title);
         parcel.writeBoolean(this.completed);
-
     }
 }
