@@ -11,6 +11,9 @@
     <string name="Splash_Screen_Initial">Logo inicial com nome</string>
     <string name="Splash_Screen_Logo">Logo sem nome</string>
     <string name="Button_generic">Botão</string>
+    <string name="texView_generic">textView</string>
+    <string name="imageView_generic">imageView</string>
     <string name="Button_Todos">Todos</string>
+    <string name="CheckBox">Concluido</string>
     <string name="Button_Comments">Comments</string>
 </resources>
