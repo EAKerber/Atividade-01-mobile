@@ -63,26 +63,30 @@
                 android:id="@+id/buttonTodo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Button_generic" />
+                android:tag="todos"
+                android:text="todos" />
 
             <Button
                 android:id="@+id/buttonComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Button_generic" />
+                android:tag="comments"
+                android:text="comments" />
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/buttonPost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/Button_generic" />
+                android:tag="posts"
+                android:text="posts" />
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/buttonAlbum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/Button_generic" />
+                android:tag="albums"
+                android:text="albums" />
 
             <Button
                 android:id="@+id/button8"
