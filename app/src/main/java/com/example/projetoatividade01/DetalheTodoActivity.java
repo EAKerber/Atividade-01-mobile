@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.projetoatividade01.model.users.Address;
 import com.example.projetoatividade01.model.Album;
 import com.example.projetoatividade01.model.Comment;
+import com.example.projetoatividade01.model.users.Geo;
 import com.example.projetoatividade01.model.Photo;
 import com.example.projetoatividade01.model.Post;
 import com.example.projetoatividade01.model.Todo;
@@ -47,6 +49,8 @@ public class DetalheTodoActivity extends AppCompatActivity {
         }else if(parcelable instanceof Photo){
             layoutPhoto();
         }
+
+
     }
 
     private void layoutPhoto() {
@@ -54,7 +58,7 @@ public class DetalheTodoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Photo photo = intent.getParcelableExtra("objTodo");
         bindPhoto(photo);
-        loadImg();
+        loadImg(photo.getThumbnailUrl());
     }
 
     private void bindPhoto(Photo obj) {
@@ -67,6 +71,8 @@ public class DetalheTodoActivity extends AppCompatActivity {
         tv.setText("Título: "+obj.getTitle());
         tv = findViewById(R.id.photoLayout_ThumbnailUrl);
         tv.setText("Thumbnail Url: "+obj.getThumbnailUrl());
+        tv = findViewById(R.id.photoLayout_Url);
+        tv.setText("Url: "+obj.getUrl());
     }
 
     private void layoutComment() {
@@ -146,12 +152,12 @@ public class DetalheTodoActivity extends AppCompatActivity {
         cb.setChecked(obj.isCompleted());
     }
 
-    public void loadImg(){
+    public void loadImg(String urlPhoto){
         new Thread(){
             public void run(){
                 Bitmap img = null;
                 try {
-                    URL url = new URL("https://www.bambui.ifmg.edu.br/portal_padrao_joomla/joomla/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png");
+                    URL url = new URL(urlPhoto);
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     InputStream inputStream = connection.getInputStream();
                     img = BitmapFactory.decodeStream(inputStream);

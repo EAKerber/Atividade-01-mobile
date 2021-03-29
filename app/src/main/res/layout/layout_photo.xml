@@ -74,21 +74,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/texView_generic"
+            android:textAlignment="viewStart"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.044"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imPhotoLayout_ThumbnailUrl" />
 
+        <TextView
+            android:id="@+id/photoLayout_Url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/texView_generic"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/photoLayout_ThumbnailUrl" />
+
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:contentDescription="@string/Splash_Screen_Logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/photoLayout_ThumbnailUrl"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@+id/photoLayout_Url"
             app:srcCompat="@drawable/splash_screen_logo_by_leila" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

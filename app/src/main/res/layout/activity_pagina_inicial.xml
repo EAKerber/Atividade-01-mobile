@@ -95,6 +95,14 @@
                 android:layout_weight="1"
                 android:tag="photos"
                 android:text="photos" />
+
+            <Button
+                android:id="@+id/buttonUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:tag="users"
+                android:text="users" />
         </LinearLayout>
     </HorizontalScrollView>
 

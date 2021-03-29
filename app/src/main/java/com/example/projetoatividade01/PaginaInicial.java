@@ -1,9 +1,11 @@
 package com.example.projetoatividade01;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.solver.GoalRow;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +23,10 @@ import com.example.projetoatividade01.model.Comment;
 import com.example.projetoatividade01.model.Photo;
 import com.example.projetoatividade01.model.Post;
 import com.example.projetoatividade01.model.Todo;
+import com.example.projetoatividade01.model.users.Address;
+import com.example.projetoatividade01.model.users.Company;
+import com.example.projetoatividade01.model.users.Geo;
+import com.example.projetoatividade01.model.users.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +45,7 @@ public class PaginaInicial extends AppCompatActivity
     List<Post> posts = new ArrayList<>();
     List<Album> albums = new ArrayList<>();
     List<Photo> photos = new ArrayList<>();
+    List<User> users = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +70,8 @@ public class PaginaInicial extends AppCompatActivity
         btn6.setOnClickListener(this::OnClick);
         Button btn7 = (Button)findViewById(R.id.buttonPhoto);
         btn7.setOnClickListener(this::OnClick);
+        Button btn8 = (Button)findViewById(R.id.buttonUser);
+        btn8.setOnClickListener(this::OnClick);
 
     }
 
@@ -92,11 +101,13 @@ public class PaginaInicial extends AppCompatActivity
         posts.clear();
         albums.clear();
         photos.clear();
+        users.clear();
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
         Button btn = (Button)view;
         btnTag = btn.getTag()+"";
+        Toast.makeText(this, "Carregando "+btnTag, Toast.LENGTH_SHORT).show();
 
         String url = "https://jsonplaceholder.typicode.com/"+btn.getTag();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url,
@@ -114,7 +125,8 @@ public class PaginaInicial extends AppCompatActivity
 
     @Override
     public void onResponse(JSONArray response) {
-            switch (btnTag){
+
+        switch (btnTag){
                 case "todos":
 
                     try {
@@ -291,7 +303,53 @@ public class PaginaInicial extends AppCompatActivity
                     }
                     break;
 
-                case "3":
+                case "users":
+
+                    try {
+                        for (int i = 0; i < response.length(); i++){
+                            JSONObject json = response.getJSONObject(i);
+                            Company cObj = new Company(json.getString("name"),
+                                    json.getString("catchPhrase"),
+                                    json.getString("bs"));
+                            Geo gObj = new Geo(json.getString("lat"),
+                                    json.getString("lgn"));
+                            Address aObj = new Address(json.getString("street"),
+                                    json.getString("suite"),
+                                    json.getString("city"),
+                                    json.getString("zipcode"),
+                                    gObj);
+                            User obj = new User(json.getInt("id"),
+                                    json.getString("name"),
+                                    json.getString("userName"),
+                                    json.getString("email"),
+                                    aObj,
+                                    json.getString("phone"),
+                                    json.getString("webSite"),
+                                    cObj);
+                            users.add(obj);
+                        }
+                        LinearLayout ll = findViewById(R.id.principalVerticalSV);
+                        for (User obj1 : users){
+                            Button bt = new Button(this);
+                            bt.setText(obj1.getUserName());
+                            bt.setTag(obj1);
+                            bt.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Button btn = (Button) v;
+                                    User user = (User)btn.getTag();
+                                    Intent intent = new Intent(getApplicationContext(), DetalheTodoActivity.class);
+                                    intent.putExtra("objTodo", user);
+                                    Toast.makeText(v.getContext(), user.getId()+" - "+user.getName(), Toast.LENGTH_LONG).show();
+                                    startActivity(intent);
+                                }
+                            });
+                            ll.addView(bt);
+                        }
+                    } catch (JSONException e) {
+                        Log.e("erro", e.getMessage());
+                        e.printStackTrace();
+                    }
                     break;
             }
         }
