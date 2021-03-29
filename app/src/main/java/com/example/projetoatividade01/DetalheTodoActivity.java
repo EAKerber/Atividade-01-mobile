@@ -3,11 +3,15 @@ package com.example.projetoatividade01;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.projetoatividade01.model.Album;
@@ -16,7 +20,14 @@ import com.example.projetoatividade01.model.Photo;
 import com.example.projetoatividade01.model.Post;
 import com.example.projetoatividade01.model.Todo;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class DetalheTodoActivity extends AppCompatActivity {
+    private Handler handler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +54,7 @@ public class DetalheTodoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Photo photo = intent.getParcelableExtra("objTodo");
         bindPhoto(photo);
+        loadImg();
     }
 
     private void bindPhoto(Photo obj) {
@@ -55,7 +67,6 @@ public class DetalheTodoActivity extends AppCompatActivity {
         tv.setText("Título: "+obj.getTitle());
         tv = findViewById(R.id.photoLayout_ThumbnailUrl);
         tv.setText("Thumbnail Url: "+obj.getThumbnailUrl());
-        ImageButton imB = findViewById(R.id.imPhotoLayout_ThumbnailUrl);
     }
 
     private void layoutComment() {
@@ -135,4 +146,29 @@ public class DetalheTodoActivity extends AppCompatActivity {
         cb.setChecked(obj.isCompleted());
     }
 
+    public void loadImg(){
+        new Thread(){
+            public void run(){
+                Bitmap img = null;
+                try {
+                    URL url = new URL("https://www.bambui.ifmg.edu.br/portal_padrao_joomla/joomla/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png");
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    InputStream inputStream = connection.getInputStream();
+                    img = BitmapFactory.decodeStream(inputStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                final Bitmap imgAux = img;
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageView iv = findViewById(R.id.imPhotoLayout_ThumbnailUrl);
+                        iv.setImageBitmap(imgAux);
+                        //LinearLayout ll =(LinearLayout) findViewById(R.id.llPhoto);
+                        //ll.addView(iv);
+                    }
+                });
+            }
+    }.start();
+    }
 }

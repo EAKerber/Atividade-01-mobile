@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llPhoto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="5"
@@ -56,11 +57,10 @@
         android:layout_height="match_parent"
         android:layout_weight="0">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/imPhotoLayout_ThumbnailUrl"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:contentDescription="@string/imageView_generic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -88,6 +88,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/photoLayout_ThumbnailUrl"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/splash_screen_logo_by_leila" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
