@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.projetoatividade01.model.Album;
 import com.example.projetoatividade01.model.Comment;
+import com.example.projetoatividade01.model.Photo;
 import com.example.projetoatividade01.model.Post;
 import com.example.projetoatividade01.model.Todo;
 
@@ -37,6 +38,7 @@ public class PaginaInicial extends AppCompatActivity
     List<Comment> comments = new ArrayList<>();
     List<Post> posts = new ArrayList<>();
     List<Album> albums = new ArrayList<>();
+    List<Photo> photos = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,8 @@ public class PaginaInicial extends AppCompatActivity
         btn5.setOnClickListener(this::OnClick);
         Button btn6 = (Button)findViewById(R.id.buttonAlbum);
         btn6.setOnClickListener(this::OnClick);
+        Button btn7 = (Button)findViewById(R.id.buttonPhoto);
+        btn7.setOnClickListener(this::OnClick);
 
     }
 
@@ -87,6 +91,7 @@ public class PaginaInicial extends AppCompatActivity
         todos.clear();
         posts.clear();
         albums.clear();
+        photos.clear();
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -250,7 +255,40 @@ public class PaginaInicial extends AppCompatActivity
                     }
                     break;
 
-                case "2":
+                case "photos":
+
+                    try {
+                        for (int i = 0; i < response.length(); i++){
+                            JSONObject json = response.getJSONObject(i);
+                            Photo obj = new Photo(json.getInt("albumId"),
+                                    json.getInt("id"),
+                                    json.getString("title"),
+                                    json.getString("url"),
+                                    json.getString("thumbnailUrl"));
+                            photos.add(obj);
+                        }
+                        LinearLayout ll = findViewById(R.id.principalVerticalSV);
+                        for (Photo obj1 : photos){
+                            Button bt = new Button(this);
+                            bt.setText(obj1.getTitle());
+                            bt.setTag(obj1);
+                            bt.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Button btn = (Button) v;
+                                    Photo photo = (Photo)btn.getTag();
+                                    Intent intent = new Intent(getApplicationContext(), DetalheTodoActivity.class);
+                                    intent.putExtra("objTodo", photo);
+                                    Toast.makeText(v.getContext(), photo.getId()+" - "+photo.getTitle(), Toast.LENGTH_LONG).show();
+                                    startActivity(intent);
+                                }
+                            });
+                            ll.addView(bt);
+                        }
+                    } catch (JSONException e) {
+                        Log.e("erro", e.getMessage());
+                        e.printStackTrace();
+                    }
                     break;
 
                 case "3":
