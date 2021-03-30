@@ -1,49 +1,19 @@
 package com.example.projetoatividade01.model.users;
 
-import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
-import androidx.annotation.RequiresApi;
+public class Address{
+    public String street;
+    public String suite;
+    public String city;
+    public String zipcode;
+    public Geo geo;
 
-
-public class Address implements Parcelable{
-    private String street;
-    private String suite;
-    private String city;
-    private String zipcode;
-    private Parcelable geo;
-
-    public Address(String  street, String suite, String city, String zipcode, Parcelable geo) {
+    public Address(String  street, String suite, String city, String zipcode, Geo geo) {
         this.street = street;
         this.suite = suite;
         this.city = city;
         this.zipcode = zipcode;
         this.geo = geo;
     }
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    private Address(Parcel parcel) {
-        this.street = parcel.readString();
-        this.suite = parcel.readString();
-        this.city = parcel.readString();
-        this.zipcode = parcel.readString();
-        //Geo go = new Geo(this, this);
-        //this.geo = go;
-    }
-
-    public static final Creator<Address> CREATOR = new Creator<Address>() {
-        @RequiresApi(api = Build.VERSION_CODES.Q)
-        @Override
-        public Address createFromParcel(Parcel in) {
-            return new Address(in);
-        }
-
-        @Override
-        public Address[] newArray(int size) {
-            return new Address[size];
-        }
-    };
-
-
 
     public String getStreet() {
         return street;
@@ -77,28 +47,13 @@ public class Address implements Parcelable{
         this.zipcode = zipcode;
     }
 
-    public Parcelable getGeo() {
+    public Geo getGeo() {
         return geo;
     }
 
-    public void setGeo(Parcelable geo) {
+    public void setGeo(Geo geo) {
         this.geo = geo;
     }
 
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(this.street);
-        parcel.writeString(this.suite);
-        parcel.writeString(this.city);
-        parcel.writeString(this.zipcode);
-        //parcel.writeParcelable(this.geo);
-    }
 }
+

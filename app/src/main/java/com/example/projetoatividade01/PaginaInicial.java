@@ -306,30 +306,33 @@ public class PaginaInicial extends AppCompatActivity
                 case "users":
 
                     try {
-                        for (int i = 0; i < response.length(); i++){
+                        for (int i = 0; i < 2/*response.length()*/; i++){
                             JSONObject json = response.getJSONObject(i);
-                            Company cObj = new Company(json.getString("name"),
-                                    json.getString("catchPhrase"),
-                                    json.getString("bs"));
-                            Geo gObj = new Geo(json.getString("lat"),
-                                    json.getString("lgn"));
-                            Address aObj = new Address(json.getString("street"),
-                                    json.getString("suite"),
-                                    json.getString("city"),
-                                    json.getString("zipcode"),
-                                    gObj);
+
+                            JSONObject aObj = json.getJSONObject("address");
+                            JSONObject gObj = json.getJSONObject("geo");
+                            JSONObject cObj = json.getJSONObject("company");
                             User obj = new User(json.getInt("id"),
                                     json.getString("name"),
-                                    json.getString("userName"),
+                                    json.getString("username"),
                                     json.getString("email"),
-                                    aObj,
+                                    new Address(aObj.getString("street"),
+                                            aObj.getString("suite"),
+                                            aObj.getString("city"),
+                                            aObj.getString("zipcode"),
+                                            new Geo(
+                                                    gObj.getString("lat"),
+                                                    gObj.getString("lng"))),
                                     json.getString("phone"),
                                     json.getString("webSite"),
-                                    cObj);
+                                    new Company( cObj.getString("name"),
+                                            cObj.getString("catchPhrase"),
+                                            cObj.getString("bs")));
                             users.add(obj);
+                            
                         }
                         LinearLayout ll = findViewById(R.id.principalVerticalSV);
-                        for (User obj1 : users){
+                        for (User obj1 : users) {
                             Button bt = new Button(this);
                             bt.setText(obj1.getUserName());
                             bt.setTag(obj1);
@@ -337,10 +340,10 @@ public class PaginaInicial extends AppCompatActivity
                                 @Override
                                 public void onClick(View v) {
                                     Button btn = (Button) v;
-                                    User user = (User)btn.getTag();
+                                    User user = (User) btn.getTag();
                                     Intent intent = new Intent(getApplicationContext(), DetalheTodoActivity.class);
                                     intent.putExtra("objTodo", user);
-                                    Toast.makeText(v.getContext(), user.getId()+" - "+user.getName(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(v.getContext(), user.getId() + " - " + user.getName(), Toast.LENGTH_LONG).show();
                                     startActivity(intent);
                                 }
                             });

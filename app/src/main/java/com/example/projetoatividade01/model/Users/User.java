@@ -1,9 +1,7 @@
 package com.example.projetoatividade01.model.users;
 
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.annotation.RequiresApi;
 
 
 public class User implements Parcelable{
@@ -11,13 +9,14 @@ public class User implements Parcelable{
     private String name;
     private String username;
     private String email;
-    private  Parcelable address;
+    private Address address;
     private String phone;
     private String website;
-    private  Parcelable company;
+    private Company company;
 
 
-    public User(int id, String  name, String username, String email, Parcelable address, String phone, String website,Parcelable company) {
+    public User(int id, String  name, String username, String email, Address address, String phone, String website, Company company) {
+        this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
@@ -26,32 +25,62 @@ public class User implements Parcelable{
         this.website = website;
         this.company = company;
     }
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    private User(Parcel parcel) {
-        this.id = parcel.readInt();
-        this.name = parcel.readString();
-        this.username = parcel.readString();
-        this.email = parcel.readString();
-        //Address adrs = new Address(this,this,this,this,this);
-        //this.address = adrs;
-        this.phone = parcel.readString();
-        this.website = parcel.readString();
-        //Company cmpn = new Company(this,this,this);
-        //this.company = cmpn;
+
+
+    private User(Parcel p) {
+        this.id = p.readInt();
+        this.name = p.readString();
+        this.username = p.readString();
+        this.email = p.readString();
+        this.address = new Address(p.readString(),
+                p.readString(),
+                p.readString(),
+                p.readString(),
+                new Geo(p.readString(),
+                        p.readString()));
+        this.phone = p.readString();
+        this.website = p.readString();
+        this.company = new Company(p.readString(),
+                p.readString(),
+                p.readString());
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
-        @RequiresApi(api = Build.VERSION_CODES.Q)
         @Override
         public User createFromParcel(Parcel in) {
             return new User(in);
         }
-
         @Override
         public User[] newArray(int size) {
             return new User[size];
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(this.id);
+        parcel.writeString(this.name);
+        parcel.writeString(this.username);
+        parcel.writeString(this.email);
+        parcel.writeString(this.address.street);
+        parcel.writeString(this.address.suite);
+        parcel.writeString(this.address.city);
+        parcel.writeString(this.address.zipcode);
+        parcel.writeString(this.address.geo.lat);
+        parcel.writeString(this.address.geo.lng);
+        parcel.writeString(this.phone);
+        parcel.writeString(this.website);
+        parcel.writeString(this.company.name);
+        parcel.writeString(this.company.catchPhrase);
+        parcel.writeString(this.company.bs);
+    }
+
+
 
     public int getId() {
         return id;
@@ -85,11 +114,11 @@ public class User implements Parcelable{
         this.email = email;
     }
 
-    public Parcelable getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(Parcelable address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
@@ -109,30 +138,11 @@ public class User implements Parcelable{
         this.website = website;
     }
 
-    public Parcelable getCompany() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompany(Parcelable company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(this.id);
-        parcel.writeString(this.name);
-        parcel.writeString(this.username);
-        parcel.writeString(this.email);
-        //parcel.writeParcelable(this.address);
-        parcel.writeString(this.phone);
-        parcel.writeString(this.website);
-        //parcel.writeParcelable(getCompany(this.company));
-    }
-
 }
