@@ -21,6 +21,7 @@ import com.example.projetoatividade01.model.users.Geo;
 import com.example.projetoatividade01.model.Photo;
 import com.example.projetoatividade01.model.Post;
 import com.example.projetoatividade01.model.Todo;
+import com.example.projetoatividade01.model.users.User;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,9 +49,51 @@ public class DetalheTodoActivity extends AppCompatActivity {
             layoutComment();
         }else if(parcelable instanceof Photo){
             layoutPhoto();
+        }else if(parcelable instanceof User){
+            layoutUser();
         }
 
 
+    }
+    private void layoutUser() {
+        setContentView(R.layout.layout_user);
+        Intent intent = getIntent();
+        User user = intent.getParcelableExtra("objTodo");
+        bindUser(user);
+    }
+
+    private void bindUser(User obj) {
+        getSupportActionBar().setTitle("Users - "+"ID: " + obj.getId());
+        TextView tv = findViewById(R.id.userLayout_Id);
+        tv.setText("ID: " + obj.getId()+"");
+        tv = findViewById(R.id.userLayout_Name);
+        tv.setText("Nome: "+obj.getName());
+        tv = findViewById(R.id.userLayout_UserName);
+        tv.setText("UserName: "+obj.getUserName());
+        tv = findViewById(R.id.userLayout_Email);
+        tv.setText("Email: "+obj.getEmail());
+        tv = findViewById(R.id.userLayout_Phone);
+        tv.setText("Telefone: "+obj.getPhone());
+        tv = findViewById(R.id.userLayout_WebSite);
+        tv.setText("WebSite: "+obj.getWebSite());
+        tv = findViewById(R.id.userLayout_Lat);
+        tv.setText("Latitude: "+obj.getAddress().getGeo().getLat());
+        tv = findViewById(R.id.userLayout_Lng);
+        tv.setText("Longitude: "+obj.getAddress().getGeo().getLng());
+        tv = findViewById(R.id.userLayout_Street);
+        tv.setText("Rua: "+obj.getAddress().getStreet());
+        tv = findViewById(R.id.userLayout_Suite);
+        tv.setText("Suite: "+obj.getAddress().getSuite());
+        tv = findViewById(R.id.userLayout_City);
+        tv.setText("Cidade: "+obj.getAddress().getCity());
+        tv = findViewById(R.id.userLayout_ZipCode);
+        tv.setText("ZipCode: "+obj.getAddress().getZipcode());
+        tv = findViewById(R.id.userLayout_CpnName);
+        tv.setText("Nome: "+obj.getCompany().getName());
+        tv = findViewById(R.id.userLayout_CatchPhrase);
+        tv.setText("''"+obj.getCompany().getCatchPhrase()+"''");
+        tv = findViewById(R.id.userLayout_Bs);
+        tv.setText("Bs: "+obj.getCompany().getBs());
     }
 
     private void layoutPhoto() {

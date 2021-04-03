@@ -324,7 +324,7 @@ public class PaginaInicial extends AppCompatActivity
                            Company company = new Company(cObj.getString("name"),
                                    cObj.getString("catchPhrase"),
                                    cObj.getString("bs"));
-                           
+
                            User user = new User(json.getInt("id"),
                                    json.getString("name"),
                                    json.getString("username"),

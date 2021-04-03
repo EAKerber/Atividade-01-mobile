@@ -16,4 +16,6 @@
     <string name="Button_Todos">Todos</string>
     <string name="CheckBox">Concluido</string>
     <string name="Button_Comments">Comments</string>
+    <string name="Address">Address</string>
+    <string name="Company">Company</string>
 </resources>
