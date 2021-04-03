@@ -107,7 +107,7 @@ public class PaginaInicial extends AppCompatActivity
 
         Button btn = (Button)view;
         btnTag = btn.getTag()+"";
-        Toast.makeText(this, "Carregando "+btnTag, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Carregando "+btnTag, Toast.LENGTH_SHORT).show();
 
         String url = "https://jsonplaceholder.typicode.com/"+btn.getTag();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url,
@@ -306,30 +306,35 @@ public class PaginaInicial extends AppCompatActivity
                 case "users":
 
                     try {
-                        for (int i = 0; i < 2/*response.length()*/; i++){
+                       for (int i = 0; i < response.length(); i++){
                             JSONObject json = response.getJSONObject(i);
-
                             JSONObject aObj = json.getJSONObject("address");
-                            JSONObject gObj = json.getJSONObject("geo");
+                            JSONObject gObj = aObj.getJSONObject("geo");
                             JSONObject cObj = json.getJSONObject("company");
-                            User obj = new User(json.getInt("id"),
-                                    json.getString("name"),
-                                    json.getString("username"),
-                                    json.getString("email"),
-                                    new Address(aObj.getString("street"),
-                                            aObj.getString("suite"),
-                                            aObj.getString("city"),
-                                            aObj.getString("zipcode"),
-                                            new Geo(
-                                                    gObj.getString("lat"),
-                                                    gObj.getString("lng"))),
-                                    json.getString("phone"),
-                                    json.getString("webSite"),
-                                    new Company( cObj.getString("name"),
-                                            cObj.getString("catchPhrase"),
-                                            cObj.getString("bs")));
-                            users.add(obj);
-                            
+
+
+                           Geo geo = new Geo(gObj.getString("lat"), gObj.getString("lng"));
+
+                           Address address = new  Address(aObj.getString("street"),
+                                   aObj.getString("suite"),
+                                   aObj.getString("city"),
+                                   aObj.getString("zipcode"),
+                                   geo);
+
+                           Company company = new Company(cObj.getString("name"),
+                                   cObj.getString("catchPhrase"),
+                                   cObj.getString("bs"));
+                           
+                           User user = new User(json.getInt("id"),
+                                   json.getString("name"),
+                                   json.getString("username"),
+                                   json.getString("email"),
+                                   address,
+                                   json.getString("phone"),
+                                   json.getString("website"),
+                                   company);
+
+                            users.add(user);
                         }
                         LinearLayout ll = findViewById(R.id.principalVerticalSV);
                         for (User obj1 : users) {

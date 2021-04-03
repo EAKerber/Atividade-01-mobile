@@ -15,7 +15,7 @@ public class User implements Parcelable{
     private Company company;
 
 
-    public User(int id, String  name, String username, String email, Address address, String phone, String website, Company company) {
+    public User(int id, String name, String username, String email, Address address, String phone, String website, Company company) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -32,17 +32,26 @@ public class User implements Parcelable{
         this.name = p.readString();
         this.username = p.readString();
         this.email = p.readString();
-        this.address = new Address(p.readString(),
+
+        Address address = new Address(p.readString(),
                 p.readString(),
                 p.readString(),
                 p.readString(),
-                new Geo(p.readString(),
-                        p.readString()));
-        this.phone = p.readString();
-        this.website = p.readString();
-        this.company = new Company(p.readString(),
+                null);
+
+        address.geo = new Geo(
                 p.readString(),
                 p.readString());
+
+        this.address = address;
+        this.phone = p.readString();
+        this.website = p.readString();
+
+        Company company = new Company(p.readString(),
+                p.readString(),
+                p.readString());
+
+        this.company = company;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
