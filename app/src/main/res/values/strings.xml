@@ -19,4 +19,5 @@
     <string name="Address">Address</string>
     <string name="Company">Company</string>
     <string name="Recycler">Recycler</string>
+    <string name="pading">5dp</string>
 </resources>

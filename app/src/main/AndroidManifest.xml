@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoAtividade01">
-        <activity android:name=".Teste"></activity>
+        <activity android:name=".LayoutRecyclerReview"></activity>
         <activity android:name=".adapter.RecycleReview" />
         <activity android:name=".DetalheTodoActivity" />
         <activity android:name=".PaginaInicial" />

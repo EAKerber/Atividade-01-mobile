@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,9 +17,9 @@ import com.example.projetoatividade01.model.Todo;
 
 import java.util.List;
 
-public class GenericAdapter extends RecyclerView.Adapter<GenericAdapter.ViewHolder>{
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
-    private List<Todo> todoList;
+    private List<Post> postList;
     private  int layout;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -31,36 +30,36 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericAdapter.ViewHold
         }
     }
 
-    public GenericAdapter(List<Todo> todos, int layout){
-        this.todoList = todos;
+    public PostAdapter(List<Post> posts, int layout){
+        this.postList = posts;
         this.layout = layout;
     }
 
 
     @NonNull
     @Override
-    public GenericAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PostAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(this.layout, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GenericAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PostAdapter.ViewHolder holder, int position) {
 
-        Todo obj = (Todo)this.todoList.get(position);
+        Post obj = (Post)this.postList.get(position);
 
-        TextView tv = holder.view.findViewById(R.id.todoCard_Title);
-        tv.setText("''"+obj.getTitle()+"''");
-        CheckBox cb = holder.view.findViewById(R.id.cbTodoCard);
-        cb.setChecked(obj.isCompleted());
+        TextView tv = holder.view.findViewById(R.id.postCard_Title);
+        tv.setText("Titulo: " + obj.getTitle()+"");
+        tv = holder.view.findViewById(R.id.postCard_Body);
+        tv.setText("''"+obj.getBody()+"''");
 
-        CardView cv = holder.view.findViewById(R.id.CardTodo);
+        TextView cv = holder.view.findViewById(R.id.postCard_Title);
         cv.setTag(obj);
         cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CardView btn = (CardView) v;
-                Todo todo = (Todo) btn.getTag();
+                TextView btn = (TextView) v;
+                Post post = (Post) btn.getTag();
                 Intent intent = new Intent(holder.view.getContext(), DetalheTodoActivity.class);
 
                 intent.putExtra("objTodo", obj);
@@ -73,7 +72,7 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return this.todoList.size();
+        return this.postList.size();
     }
 
 

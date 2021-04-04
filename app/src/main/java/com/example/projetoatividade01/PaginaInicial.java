@@ -1,12 +1,9 @@
 package com.example.projetoatividade01;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.solver.GoalRow;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -98,7 +95,7 @@ public class PaginaInicial extends AppCompatActivity
     }
 
     public void irParaRecycler(View view){
-        Intent intent = new Intent(this, Teste.class);
+        Intent intent = new Intent(this, LayoutRecyclerReview.class);
         startActivity(intent);
     }
 
