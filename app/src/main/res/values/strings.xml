@@ -18,4 +18,5 @@
     <string name="Button_Comments">Comments</string>
     <string name="Address">Address</string>
     <string name="Company">Company</string>
+    <string name="Recycler">Recycler</string>
 </resources>

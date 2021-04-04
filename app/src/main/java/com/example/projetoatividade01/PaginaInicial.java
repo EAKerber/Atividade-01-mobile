@@ -2,6 +2,7 @@ package com.example.projetoatividade01;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.solver.GoalRow;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -72,6 +73,8 @@ public class PaginaInicial extends AppCompatActivity
         btn7.setOnClickListener(this::OnClick);
         Button btn8 = (Button)findViewById(R.id.buttonUser);
         btn8.setOnClickListener(this::OnClick);
+        Button btnRecycler= (Button)findViewById(R.id.recyclerBt);
+        btnRecycler.setOnClickListener(this::irParaRecycler);
 
     }
 
@@ -93,6 +96,12 @@ public class PaginaInicial extends AppCompatActivity
         startActivity(intent);
         finish();
     }
+
+    public void irParaRecycler(View view){
+        Intent intent = new Intent(this, Teste.class);
+        startActivity(intent);
+    }
+
     public  void OnClick(View view){
         LinearLayout ll = findViewById(R.id.principalVerticalSV);
         ll.removeAllViews();
@@ -107,7 +116,7 @@ public class PaginaInicial extends AppCompatActivity
 
         Button btn = (Button)view;
         btnTag = btn.getTag()+"";
-        //Toast.makeText(this, "Carregando "+btnTag, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Carregando "+btnTag, Toast.LENGTH_SHORT).show();
 
         String url = "https://jsonplaceholder.typicode.com/"+btn.getTag();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url,
