@@ -101,7 +101,8 @@ public class DetalheTodoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Photo photo = intent.getParcelableExtra("objTodo");
         bindPhoto(photo);
-        loadImg(photo.getThumbnailUrl());
+        ImageView im = findViewById(R.id.imPhotoLayout_ThumbnailUrl);
+        loadImg(photo.getThumbnailUrl(), im);
     }
 
     private void bindPhoto(Photo obj) {
@@ -195,7 +196,7 @@ public class DetalheTodoActivity extends AppCompatActivity {
         cb.setChecked(obj.isCompleted());
     }
 
-    public void loadImg(String urlPhoto){
+    public void loadImg(String urlPhoto, ImageView imageView){
         new Thread(){
             public void run(){
                 Bitmap img = null;
@@ -211,7 +212,7 @@ public class DetalheTodoActivity extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        ImageView iv = findViewById(R.id.imPhotoLayout_ThumbnailUrl);
+                        ImageView iv = imageView;
                         iv.setImageBitmap(imgAux);
                         //LinearLayout ll =(LinearLayout) findViewById(R.id.llPhoto);
                         //ll.addView(iv);
