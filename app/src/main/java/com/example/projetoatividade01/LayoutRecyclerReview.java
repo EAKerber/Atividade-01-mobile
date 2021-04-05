@@ -19,8 +19,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.projetoatividade01.adapter.AlbumAdapter;
+import com.example.projetoatividade01.adapter.CommentAdapter;
 import com.example.projetoatividade01.adapter.GenericAdapter;
 import com.example.projetoatividade01.adapter.PostAdapter;
+import com.example.projetoatividade01.model.Album;
+import com.example.projetoatividade01.model.Comment;
 import com.example.projetoatividade01.model.Post;
 import com.example.projetoatividade01.model.Todo;
 
@@ -35,10 +39,13 @@ public class LayoutRecyclerReview extends AppCompatActivity
         implements Response.Listener<JSONArray>,
         Response.ErrorListener{
 
-    String btnTag = "";
+    int num = 0;
+    String btnTag;
     List<String> lista = new ArrayList<>();
     List<Todo> todos2 = new ArrayList<>();
     List<Post> posts2 = new ArrayList<>();
+    List<Comment> comments2 = new ArrayList<>();
+    List<Album> albums2 = new ArrayList<>();
 
     TextView tv_RR;
 
@@ -49,31 +56,41 @@ public class LayoutRecyclerReview extends AppCompatActivity
         getSupportActionBar().setTitle("RecyclerView");
         clearLists();
         encheLista();
-        btnTag = "todos";
+        fazRequest();
+    }
 
+    public void fazRequest(){
 
+        int i = 0;
         for (String s : lista){
-            btnTag = s;
+            i++;
+        }
+
+        if(i > num){
+            btnTag = lista.get(num);
             RequestQueue queue = Volley.newRequestQueue(this);
             String url = "https://jsonplaceholder.typicode.com/" + btnTag;
 
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                    this, this);
+                this, this);
 
             queue.add(jsonArrayRequest);
-
+            num++;
         }
-
     }
 
     public void clearLists(){
         lista.clear();
         todos2.clear();
         posts2.clear();
+        comments2.clear();
+        albums2.clear();
     }
     public void encheLista(){
-        lista.add("todos");
-        lista.add("posts");
+        lista.add(0,"todos");
+        lista.add(1,"posts");
+        lista.add(2,"comments");
+        lista.add(3,"albums");
     }
 
     @Override
@@ -108,13 +125,15 @@ public class LayoutRecyclerReview extends AppCompatActivity
                 };
                 rvTodo.setAdapter(adapter);
 
+                fazRequest();
+
             } catch (JSONException e) {
                 Log.e("erro", e.getMessage());
                 e.printStackTrace();
             }
                 break;
 
-            case  "posts":
+            case "posts":
 
                 tv_RR = findViewById(R.id.textView_RR_Post);
                 tv_RR.setText(btnTag);
@@ -137,14 +156,69 @@ public class LayoutRecyclerReview extends AppCompatActivity
                     };
                     rvPost.setAdapter(adapter);
 
-                    btnTag = "todos";
-                    RequestQueue queue = Volley.newRequestQueue(this);
-                    String url = "https://jsonplaceholder.typicode.com/" + btnTag;
+                    fazRequest();
 
-                    JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                            this, this);
+                } catch (JSONException e) {
+                    Log.e("erro", e.getMessage());
+                    e.printStackTrace();
+                }
+                    break;
 
-                    queue.add(jsonArrayRequest);
+            case "comments":
+
+                tv_RR = findViewById(R.id.textView_RR_Comment);
+                tv_RR.setText(btnTag);
+
+                try {
+                    for (int i = 0; i < response.length(); i++){
+                        JSONObject json = response.getJSONObject(i);
+                        Comment obj = new Comment(json.getInt("postId"),
+                                json.getInt("id"),
+                                json.getString("name"),
+                                json.getString("email"),
+                                json.getString("body"));
+                        comments2.add(obj);
+                    }
+
+                    RecyclerView rvComment = findViewById(R.id.comment_RecyclerReview);
+
+                    LinearLayoutManager llhm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+                    rvComment.setLayoutManager(llhm);
+                    CommentAdapter adapter = new CommentAdapter(comments2, R.layout.layout_comment_card){
+                    };
+                    rvComment.setAdapter(adapter);
+
+                    fazRequest();
+
+                } catch (JSONException e) {
+                    Log.e("erro", e.getMessage());
+                    e.printStackTrace();
+                }
+                    break;
+
+            case "albums":
+
+                tv_RR = findViewById(R.id.textView_RR_Album);
+                tv_RR.setText(btnTag);
+
+                try {
+                    for (int i = 0; i < response.length(); i++){
+                        JSONObject json = response.getJSONObject(i);
+                        Album obj = new Album(json.getInt("userId"),
+                                json.getInt("id"),
+                                json.getString("title"));
+                        albums2.add(obj);
+                    }
+
+                    RecyclerView rvAlbum = findViewById(R.id.album_RecyclerReview);
+
+                    LinearLayoutManager llhm = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+                    rvAlbum.setLayoutManager(llhm);
+                    AlbumAdapter adapter = new AlbumAdapter(albums2, R.layout.layout_album_card){
+                    };
+                    rvAlbum.setAdapter(adapter);
+
+                    fazRequest();
 
                 } catch (JSONException e) {
                     Log.e("erro", e.getMessage());

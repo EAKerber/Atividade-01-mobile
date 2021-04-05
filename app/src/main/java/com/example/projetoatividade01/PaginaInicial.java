@@ -171,38 +171,38 @@ public class PaginaInicial extends AppCompatActivity
                 case "comments":
 
                     try {
-                    for (int i = 0; i < response.length(); i++){
-                        JSONObject json = response.getJSONObject(i);
-                        Comment obj = new Comment(json.getInt("postId"),
-                                json.getInt("id"),
-                                json.getString("name"),
-                                json.getString("email"),
-                                json.getString("body"));
-                        comments.add(obj);
-                    }
-                    LinearLayout ll = findViewById(R.id.principalVerticalSV);
-                    for (Comment obj1 : comments){
-                        Button bt = new Button(this);
-                        bt.setText(obj1.getBody());
-                        bt.setTag(obj1);
-                        bt.setOnClickListener(new View.OnClickListener() {
+                        for (int i = 0; i < response.length(); i++){
+                            JSONObject json = response.getJSONObject(i);
+                            Comment obj = new Comment(json.getInt("postId"),
+                                    json.getInt("id"),
+                                    json.getString("name"),
+                                    json.getString("email"),
+                                    json.getString("body"));
+                            comments.add(obj);
+                        }
+                        LinearLayout ll = findViewById(R.id.principalVerticalSV);
+                        for (Comment obj1 : comments){
+                            Button bt = new Button(this);
+                            bt.setText(obj1.getBody());
+                            bt.setTag(obj1);
+                            bt.setOnClickListener(new View.OnClickListener() {
                             @Override
-                            public void onClick(View v) {
-                                Button btn = (Button) v;
-                                Comment comment = (Comment)btn.getTag();
-                                Intent intent = new Intent(getApplicationContext(), DetalheTodoActivity.class);
-                                intent.putExtra("objTodo", comment);
-                                Toast.makeText(v.getContext(), comment.getId()+" - "+comment.getBody(), Toast.LENGTH_LONG).show();
-                                startActivity(intent);
-                            }
-                        });
-                        ll.addView(bt);
-                    }
-                } catch (JSONException e) {
-                        Log.e("erro", e.getMessage());
-                        e.printStackTrace();
-                    }
-                    break;
+                                public void onClick(View v) {
+                                    Button btn = (Button) v;
+                                    Comment comment = (Comment)btn.getTag();
+                                    Intent intent = new Intent(getApplicationContext(), DetalheTodoActivity.class);
+                                    intent.putExtra("objTodo", comment);
+                                    Toast.makeText(v.getContext(), comment.getId()+" - "+comment.getBody(), Toast.LENGTH_LONG).show();
+                                    startActivity(intent);
+                                }
+                            });
+                            ll.addView(bt);
+                        }
+                        } catch (JSONException e) {
+                            Log.e("erro", e.getMessage());
+                            e.printStackTrace();
+                        }
+                            break;
 
                 case "posts":
 
@@ -233,11 +233,11 @@ public class PaginaInicial extends AppCompatActivity
                             });
                             ll.addView(bt);
                         }
-                    } catch (JSONException e) {
-                        Log.e("erro", e.getMessage());
-                        e.printStackTrace();
-                    }
-                    break;
+                        } catch (JSONException e) {
+                            Log.e("erro", e.getMessage());
+                            e.printStackTrace();
+                        }
+                            break;
 
                 case "albums":
 
@@ -267,11 +267,11 @@ public class PaginaInicial extends AppCompatActivity
                             });
                             ll.addView(bt);
                         }
-                    } catch (JSONException e) {
-                        Log.e("erro", e.getMessage());
-                        e.printStackTrace();
-                    }
-                    break;
+                        } catch (JSONException e) {
+                            Log.e("erro", e.getMessage());
+                            e.printStackTrace();
+                        }
+                            break;
 
                 case "photos":
 
@@ -303,11 +303,11 @@ public class PaginaInicial extends AppCompatActivity
                             });
                             ll.addView(bt);
                         }
-                    } catch (JSONException e) {
-                        Log.e("erro", e.getMessage());
-                        e.printStackTrace();
-                    }
-                    break;
+                        } catch (JSONException e) {
+                            Log.e("erro", e.getMessage());
+                            e.printStackTrace();
+                        }
+                            break;
 
                 case "users":
 
@@ -360,11 +360,11 @@ public class PaginaInicial extends AppCompatActivity
                             });
                             ll.addView(bt);
                         }
-                    } catch (JSONException e) {
-                        Log.e("erro", e.getMessage());
-                        e.printStackTrace();
-                    }
-                    break;
+                        } catch (JSONException e) {
+                            Log.e("erro", e.getMessage());
+                            e.printStackTrace();
+                        }
+                            break;
             }
         }
     }

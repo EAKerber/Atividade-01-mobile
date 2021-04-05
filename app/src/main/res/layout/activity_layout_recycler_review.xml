@@ -52,6 +52,38 @@
                 android:layout_height="150dp"
                 android:padding="10dp" />
 
+            <TextView
+                android:id="@+id/textView_RR_Comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/texView_generic"
+                android:textAlignment="center"
+                android:textColor="@color/nice_blue"
+                android:textStyle="bold"
+                android:textAllCaps="true"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comment_RecyclerReview"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/textView_RR_Album"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/texView_generic"
+                android:textAlignment="center"
+                android:textColor="@color/nice_blue"
+                android:textStyle="bold"
+                android:textAllCaps="true"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/album_RecyclerReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" />
+
         </LinearLayout>
     </ScrollView>
 
