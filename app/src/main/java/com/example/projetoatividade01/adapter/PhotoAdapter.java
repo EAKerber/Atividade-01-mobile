@@ -53,7 +53,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder>{
         tv.setText("Titulo: " + obj.getTitle()+"");
         DetalheTodoActivity dta = new DetalheTodoActivity();
         //deveria ser só trocar o link por obj.getThumbnailUrl(), mas não funciona ;-;
-        dta.loadImg("https://apucarana.cidadecancao.com/media/catalog/product/cache/1/small_image/200x200/9df78eab33525d08d6e5fb8d27136e95/a/b/abacaxi-perola-unidade-0000000032674.jpg",
+        dta.loadImg("https://images-ext-1.discordapp.net/external/PMeU-z2SZ9k3R3DCJrIBVSb9QVdsW9W-reautC5C3p8/%3F_nc_cat%3D107%26ccb%3D1-3%26_nc_sid%3D174925%26_nc_eui2%3DAeFr-dCVeF6qNFn6Ejsax8QIwrdx1XULoPHCt3HVdQug8cCH_nSzDzVlOoSLHAjBeh4%26_nc_ohc%3D1pmgyrC2FVMAX9cjQ_m%26_nc_ht%3Dscontent.fbfh1-2.fna%26oh%3Dad0f78bf69805656f692b51a7bdf31e2%26oe%3D60ABF7F9/https/scontent.fbfh1-2.fna.fbcdn.net/v/t1.18169-9/10982036_617952641671138_5149806917836956363_n.jpg?width=473&height=473",
                 holder.view.findViewById(R.id.photoCard_ImageView));
 
         CardView cv = holder.view.findViewById(R.id.CardPhoto);

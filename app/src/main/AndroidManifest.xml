@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoAtividade01">
         <activity android:name=".LayoutRecyclerReview"></activity>
-        <activity android:name=".adapter.RecycleReview" />
         <activity android:name=".DetalheTodoActivity" />
         <activity android:name=".PaginaInicial" />
         <activity android:name=".TelaLogin" />
